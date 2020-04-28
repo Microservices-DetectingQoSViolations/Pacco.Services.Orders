@@ -76,6 +76,7 @@ namespace Pacco.Services.Orders.Infrastructure
                 .AddRedis()
                 .AddMetrics()
                 .AddJaeger()
+                .AddQoSTrackingDecorators()
                 .AddHandlersLogging()
                 .AddMongoRepository<CustomerDocument, Guid>("customers")
                 .AddMongoRepository<OrderDocument, Guid>("orders")
