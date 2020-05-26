@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Convey;
 using Convey.Secrets.Vault;
 using Convey.Logging;
+using Convey.QoS.Violation.Runtime;
 using Convey.Types;
 using Convey.WebApi;
 using Convey.WebApi.CQRS;
@@ -39,7 +40,8 @@ namespace Pacco.Services.Orders.Api
                             afterDispatch: (cmd, ctx) => ctx.Response.Created($"orders/{cmd.OrderId}"))
                         .Post<AddParcelToOrder>("orders/{orderId}/parcels/{parcelId}")
                         .Delete<DeleteParcelFromOrder>("orders/{orderId}/parcels/{parcelId}")
-                        .Post<AssignVehicleToOrder>("orders/{orderId}/vehicles/{vehicleId}")))
+                        .Post<AssignVehicleToOrder>("orders/{orderId}/vehicles/{vehicleId}"))
+                    .UseRuntimeMetrics())
                 .UseLogging()
                 .UseVault()
                 .Build()
